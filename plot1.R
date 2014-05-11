@@ -14,8 +14,15 @@ data0=data0[!is.na(data0$DateTime),]
 date1=strptime("2007-02-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 date2=strptime("2007-02-03 00:00:00", format="%Y-%m-%d %H:%M:%S")
 dt=data0[data0$DateTime<date2 & data0$DateTime>date1,]
+
+png("plot1.png")
+# saving default settings
+opar <- par(no.readonly=TRUE)
+
 #building plot1
 with(dt, hist(Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)"))
+
 #coping plot
-dev.copy(png, "plot1.png")
 dev.off()
+# resetting default param values
+par(opar)

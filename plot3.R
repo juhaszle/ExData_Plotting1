@@ -14,14 +14,23 @@ data0=data0[!is.na(data0$DateTime),]
 date1=strptime("2007-02-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 date2=strptime("2007-02-03 00:00:00", format="%Y-%m-%d %H:%M:%S")
 dt=data0[data0$DateTime<date2 & data0$DateTime>date1,]
+
+#building plot3
+png( "plot3.png")
+# saving default settings
+opar <- par(no.readonly=TRUE)
+
 #turn off local specific timing, setting standard locale
 Sys.setlocale("LC_TIME", "C")
-#building plot3
+
+
 with(dt, plot(DateTime, Sub_metering_1, type='l', xlab="", ylab="Energy sub metering"))
 lines(dt$DateTime, dt$Sub_metering_2, col="red")
 lines(dt$DateTime, dt$Sub_metering_3, col="blue")
-legend("topright", lty=1, col=c("black", "red", "blue"), legend=c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"))
+legend("topright", lty=1, col=c("black", "red", "blue"), 
+       legend=c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"))
 
 #coping plot
-dev.copy(png, "plot3.png")
 dev.off()
+# resetting default paramd
+par(opar)

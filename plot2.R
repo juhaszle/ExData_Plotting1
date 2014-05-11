@@ -14,10 +14,19 @@ data0=data0[!is.na(data0$DateTime),]
 date1=strptime("2007-02-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 date2=strptime("2007-02-03 00:00:00", format="%Y-%m-%d %H:%M:%S")
 dt=data0[data0$DateTime<date2 & data0$DateTime>date1,]
+
+png( "plot2.png")
+
+# saving default settings
+opar <- par(no.readonly=TRUE)
+
 #turn off local specific timing, setting standard locale
 Sys.setlocale("LC_TIME", "C")
+
 #building plot2
 with(dt, plot(DateTime,Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)"))
+
 #coping plot
-dev.copy(png, "plot2.png")
 dev.off()
+# resetting default par
+par(opar)
